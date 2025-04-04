@@ -25,6 +25,14 @@
 	});
 </script>
 
+<nav>
+  <a href="/">Home</a>
+  <a href="/budgets">Budgets</a>
+  <a href="/members">Members</a>
+  <a href="/purchases">Purchases</a>
+  <a href="/teams">Teams</a>
+</nav>
+
 {#if data?.user}
 	<p>Hi, {data.user.email}!</p>
 	<p><button onclick={logout} type="button">Logout</button></p>
