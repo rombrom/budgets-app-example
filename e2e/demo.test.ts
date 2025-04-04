@@ -19,8 +19,10 @@ test('cannot sign up with weak password', async ({ page }) => {
 });
 
 test('can sign up', async ({ page }) => {
-	const email = `${Math.floor(Math.random() * Date.now()).toString(36)}@example.com`;
-	const password = `${Math.floor(Math.random() * Date.now()).toString(36)}`;
+	const randomStr = Math.floor(Math.random() * Date.now()).toString(36);
+
+	const email = `${randomStr}@example.com`;
+	const password = `${randomStr}`;
 
 	await page.goto('/auth');
 	await page.getByLabel('Email').fill(email);
