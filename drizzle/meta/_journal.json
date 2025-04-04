@@ -15,6 +15,13 @@
       "when": 1743774636375,
       "tag": "0001_dear_dazzler",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1743777267771,
+      "tag": "0002_low_natasha_romanoff",
+      "breakpoints": true
     }
   ]
 }

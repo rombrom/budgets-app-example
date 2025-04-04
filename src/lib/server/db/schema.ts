@@ -35,5 +35,5 @@ export const purchase = pgTable('purchase', {
 	...genericFields,
 	amount: integer().notNull(),
 	budgetId: integer().references(() => budget.id),
-	teamId: integer().references(() => team.id)
+	memberId: integer().references(() => member.id)
 });
