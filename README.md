@@ -7,6 +7,7 @@ Built in SvelteKit, with Drizzle ORM, Supabase.
 ! Make sure you have Docker installed and the daemon running.
 ! Copy `.env.example` to `.env`
 ! `npm run dev`
+! `npm run db:migrate`
 
 ## Developing
 
