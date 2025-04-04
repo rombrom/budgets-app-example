@@ -1,4 +1,5 @@
 import { pgTable, serial, text, integer, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { relations } from 'drizzle-orm';
 import { authUsers } from 'drizzle-orm/supabase';
 
 const genericFields = {
@@ -37,3 +38,36 @@ export const purchase = pgTable('purchase', {
 	budgetId: integer().references(() => budget.id),
 	memberId: integer().references(() => member.id)
 });
+
+export const teamRelations = relations(team, ({ many }) => ({
+  budgets: many(budget),
+  members: many(member),
+}));
+
+export const memberRelations = relations(member, ({ many, one }) => ({
+  purchases: many(purchase),
+  team: one(team, {
+    fields: [member.teamId],
+    references: [team.id],
+  }),
+}));
+
+export const budgetRelations = relations(budget, ({ many, one }) => ({
+  purchases: many(purchase),
+  team: one(team, {
+    fields: [budget.teamId],
+    references: [team.id],
+  }),
+}));
+
+export const purchaseRelations = relations(purchase, ({ one }) => ({
+  budget: one(budget, {
+    fields: [purchase.budgetId],
+    references: [budget.id],
+  }),
+  member: one(member, {
+    fields: [purchase.memberId],
+    references: [member.id],
+  }),
+}));
+
