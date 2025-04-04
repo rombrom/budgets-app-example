@@ -22,6 +22,13 @@
       "when": 1743777267771,
       "tag": "0002_low_natasha_romanoff",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1743789859741,
+      "tag": "0003_daily_nextwave",
+      "breakpoints": true
     }
   ]
 }
