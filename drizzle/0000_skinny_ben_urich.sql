@@ -13,6 +13,7 @@ CREATE TABLE "member" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now(),
+	"email" text NOT NULL,
 	"name" text NOT NULL,
 	"teamId" integer,
 	"userId" uuid
@@ -31,7 +32,6 @@ CREATE TABLE "team" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now(),
-	"email" text NOT NULL,
 	"name" text
 );
 --> statement-breakpoint

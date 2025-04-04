@@ -11,12 +11,12 @@ const genericFields = {
 
 export const team = pgTable('team', {
 	...genericFields,
-	email: text().notNull(),
 	name: text()
 });
 
 export const member = pgTable('member', {
 	...genericFields,
+	email: text().notNull(),
 	name: text().notNull(),
 	teamId: integer().references(() => team.id),
 	userId: uuid().references(() => authUsers.id, { onDelete: 'cascade' })
