@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { ADMIN_EMAIL, ADMIN_PASSWORD } from './config';
 
 test('home page has expected h1', async ({ page }) => {
 	await page.goto('/');
@@ -30,9 +31,8 @@ test('can sign up', async ({ page }) => {
 });
 
 test('can log in and out', async ({ page }) => {
-	// TODO: change this w/ a seeded account
-	const email = `rtzijlstra@icloud.com`;
-	const password = `testpw`;
+	const email = ADMIN_EMAIL;
+	const password = ADMIN_PASSWORD;
 
 	await page.goto('/auth');
 	await page.getByLabel('Email').fill(email);
