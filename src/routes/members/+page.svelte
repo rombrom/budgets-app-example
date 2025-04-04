@@ -1,7 +1,13 @@
 <script lang="ts">
 	import * as Table from '$lib/components/ui/table/index.js';
-	import { createSvelteTable, FlexRender } from '$lib/components/ui/data-table/index.js';
+	import {
+		createSvelteTable,
+		FlexRender,
+		renderComponent
+	} from '$lib/components/ui/data-table/index.js';
 	import { getCoreRowModel, type ColumnDef } from '@tanstack/table-core';
+
+	import DeleteMember from './DeleteMember.svelte';
 
 	let { data } = $props();
 
@@ -12,7 +18,11 @@
 		{ accessorKey: 'teamId' },
 		{ accessorKey: 'userId' },
 		{ accessorKey: 'createdAt' },
-		{ accessorKey: 'updatedAt' }
+		{ accessorKey: 'updatedAt' },
+		{
+			id: 'delete',
+			cell: ({ row }) => renderComponent(DeleteMember, { action: '?/delete', id: row.original.id })
+		}
 	];
 
 	const table = createSvelteTable({
@@ -26,6 +36,7 @@
 
 Members
 
+<form action=""></form>
 <Table.Root>
 	<Table.Header>
 		{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
