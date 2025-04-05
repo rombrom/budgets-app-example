@@ -4,7 +4,7 @@
 	import { renderComponent } from '$lib/components/ui/data-table/index.js';
 	import { type ColumnDef } from '@tanstack/table-core';
 
-	import DeleteMember from './DeleteMember.svelte';
+	import SelectTeam from './SelectTeam.svelte';
 
 	let { data } = $props();
 
@@ -12,19 +12,19 @@
 		{ accessorKey: 'id' },
 		{ accessorKey: 'email' },
 		{ accessorKey: 'name' },
-		{ accessorKey: 'teamId' },
+		{
+			accessorKey: 'teamId',
+			cell: ({ row }) =>
+				renderComponent(SelectTeam, {
+					action: '?/updateTeam',
+					id: row.original.id,
+					teams: data.teams,
+					team: data.teams.find(({ id }) => id === row.original.teamId)
+				})
+		},
 		{ accessorKey: 'userId' },
 		{ accessorKey: 'createdAt' },
-		{ accessorKey: 'updatedAt' },
-		{
-			id: 'delete',
-			cell: ({ row }) =>
-				renderComponent(DeleteMember, {
-					action: '?/delete',
-					email: row.original.email,
-					id: row.original.id
-				})
-		}
+		{ accessorKey: 'updatedAt' }
 	];
 </script>
 

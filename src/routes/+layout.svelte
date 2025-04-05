@@ -2,6 +2,7 @@
 	import '../app.css';
 
 	import { invalidate } from '$app/navigation';
+	import { Toaster } from '$lib/components/ui/sonner/index.js';
 	import { onMount } from 'svelte';
 
 	let { data, children } = $props();
@@ -26,16 +27,18 @@
 </script>
 
 <nav>
-  <a href="/">Home</a>
-  <a href="/budgets">Budgets</a>
-  <a href="/members">Members</a>
-  <a href="/purchases">Purchases</a>
-  <a href="/teams">Teams</a>
+	<a href="/">Home</a>
+	<a href="/budgets">Budgets</a>
+	<a href="/members">Members</a>
+	<a href="/purchases">Purchases</a>
+	<a href="/teams">Teams</a>
 </nav>
 
 {#if data?.user}
 	<p>Hi, {data.user.email}!</p>
 	<p><button onclick={logout} type="button">Logout</button></p>
 {/if}
+
+<Toaster />
 
 {@render children()}
