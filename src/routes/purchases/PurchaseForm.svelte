@@ -4,16 +4,34 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { formSchema } from './schema';
 	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
+	import type * as table from '$lib/server/db/schema';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
+	import { getFlash } from 'sveltekit-flash-message';
+	import { toast } from 'svelte-sonner';
+	import { page } from '$app/state';
 
 	let rootProps: {
 		action: string;
-		budgets: { id: number; name: string | null; teamId: number | null }[];
+		// this is awkward; cannot use materialized view types...
+		budgets: (typeof table.budget.$inferSelect & {
+			spent: number | null;
+			remaining: number | null;
+			team: typeof table.team.$inferSelect;
+		})[];
 		form: SuperValidated<Infer<typeof formSchema>>;
 		members: { id: number; email: string; teamId: number | null }[];
 	} = $props();
 
+	const flash = getFlash(page);
+
 	const form = superForm(rootProps.form, {
+		onUpdated: ({ form }) => {
+			if (form.valid && $flash?.type !== 'error') {
+				toast.success(`Created purchase for ${form.data.amount}.`);
+			} else {
+				toast.error($flash?.message ?? 'Please fix the errors in the form.');
+			}
+		},
 		validators: valibotClient(formSchema)
 	});
 
@@ -45,11 +63,17 @@
 				<Form.Label>Budget</Form.Label>
 				<Select.Root type="single" bind:value={$formData.budgetId} name={props.name}>
 					<Select.Trigger {...props}>
-						{selectedBudget?.name ?? 'Select a budget'}
+						{selectedBudget
+							? `${selectedBudget.name} (${selectedBudget.remaining ?? 0})`
+							: 'Select a budget'}
 					</Select.Trigger>
 					<Select.Content>
 						{#each rootProps.budgets as budget (budget.id)}
-							<Select.Item value={String(budget.id)} label={budget.name ?? String(budget.id)} />
+							<Select.Item
+								disabled={(budget.remaining ?? 0) <= Number($formData.amount)}
+								value={String(budget.id)}
+								label={`${budget.name ?? String(budget.id)} (${budget.remaining ?? 0})`}
+							/>
 						{/each}
 					</Select.Content>
 				</Select.Root>

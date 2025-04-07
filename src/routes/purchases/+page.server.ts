@@ -7,11 +7,12 @@ import { formSchema } from './schema';
 import { valibot } from 'sveltekit-superforms/adapters';
 import { eq, getTableColumns, sql } from 'drizzle-orm';
 import { getBudgets } from '$lib/server/db/util';
+import { setFlash } from 'sveltekit-flash-message/server';
 
 const schema = valibot(formSchema);
 
 export const actions = {
-	async create({ request }) {
+	async create({ cookies, request }) {
 		const form = await superValidate(request, schema);
 
 		if (!form.valid) return fail(400, { form });
@@ -19,26 +20,31 @@ export const actions = {
 		const amount = Number(form.data.amount) * 100;
 		const budgetId = Number(form.data.budgetId);
 
-		const [result] = await db.transaction(async (tx) => {
-			const [budget] = await tx
-				.select({
-					...getTableColumns(table.budget),
-					remaining: sql<number>`(${table.budget.amount} - sum(${table.purchase.amount}))::int`
-				})
-				.from(table.budget)
-				.where(eq(table.budget.id, budgetId))
-				.leftJoin(table.purchase, eq(table.budget.id, table.purchase.budgetId))
-				.groupBy(table.budget.id);
+		try {
+			const [result] = await db.transaction(async (tx) => {
+				const [budget] = await tx
+					.select({
+						...getTableColumns(table.budget),
+						remaining: sql<number>`(${table.budget.amount} - sum(${table.purchase.amount}))::int`
+					})
+					.from(table.budget)
+					.where(eq(table.budget.id, budgetId))
+					.leftJoin(table.purchase, eq(table.budget.id, table.purchase.budgetId))
+					.groupBy(table.budget.id);
 
-			if (budget.remaining - amount < 0) tx.rollback();
+				if (budget.remaining - amount < 0) tx.rollback();
 
-			return tx
-				.insert(table.purchase)
-				.values({ amount, budgetId, memberId: Number(form.data.memberId) })
-				.returning();
-		});
+				return tx
+					.insert(table.purchase)
+					.values({ amount, budgetId, memberId: Number(form.data.memberId) })
+					.returning();
+			});
 
-		return { form, result };
+			return { form, result };
+		} catch {
+			setFlash({ type: 'error', message: 'Not enough budget remaining.' }, cookies);
+			return fail(400, { form });
+		}
 	}
 };
 
