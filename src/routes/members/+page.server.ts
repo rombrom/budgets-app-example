@@ -23,13 +23,11 @@ export const actions = {
 
 	async updateTeam({ request }) {
 		const formData = await request.formData();
-		const memberId = formData.get('id');
+		const memberId = formData.get('memberId');
 		const teamId = formData.get('teamId');
 
 		if (!memberId) return fail(400);
 		if (!teamId) return fail(400);
-
-		console.log({ teamId, memberId });
 
 		const member = await db.query.member.findFirst({
 			where: ({ id }, { eq }) => eq(id, Number(memberId))
@@ -55,7 +53,7 @@ export const actions = {
 
 export async function load() {
 	const [members, teams] = await Promise.all([
-		db.query.member.findMany(),
+		db.query.member.findMany({ with: { team: true } }),
 		db.query.team.findMany()
 	]);
 

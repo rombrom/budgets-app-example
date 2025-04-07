@@ -6,7 +6,6 @@ import { superValidate } from 'sveltekit-superforms';
 import { formSchema } from './schema';
 import { valibot } from 'sveltekit-superforms/adapters';
 import { eq, getTableColumns, sql } from 'drizzle-orm';
-import type { PgTableWithColumns, PgColumn } from 'drizzle-orm/pg-core';
 
 const schema = valibot(formSchema);
 

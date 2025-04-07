@@ -17,9 +17,8 @@
 			cell: ({ row }) =>
 				renderComponent(SelectTeam, {
 					action: '?/updateTeam',
-					id: row.original.id,
-					teams: data.teams,
-					team: data.teams.find(({ id }) => id === row.original.teamId)
+					member: row.original,
+					teams: data.teams
 				})
 		},
 		{ accessorKey: 'userId' },

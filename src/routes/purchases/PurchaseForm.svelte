@@ -19,10 +19,6 @@
 
 	const { form: formData, enhance } = form;
 
-	// TODO: compute optimal budget. assumption will be that the budget which
-	//       has most spent but still fits the purchase is optimum.
-	// let suggestedBudget = $derived();
-
 	let selectedBudget = $derived(
 		rootProps.budgets.find(({ id }) => String(id) === $formData.budgetId)
 	);
