@@ -1,4 +1,5 @@
 import { expect, test as setup } from '@playwright/test';
+import { execSync } from 'node:child_process';
 
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
@@ -10,7 +11,11 @@ if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL is not set');
 const client = postgres(process.env.DATABASE_URL);
 const db = drizzle(client, { schema });
 
-setup('seed admin user', async ({ page }) => {
+setup('initialize db', async ({ page }) => {
+	// TODO: parameterize
+	execSync(`npx supabase db reset`);
+	execSync(`npx drizzle-kit migrate`);
+
 	const admin = await db.query.member.findFirst({
 		where: ({ email }, { eq }) => eq(email, ADMIN_EMAIL)
 	});

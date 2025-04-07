@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { ADMIN_EMAIL, ADMIN_PASSWORD } from './config';
 
+const MEMBER_AMOUNT = 20;
+
 test('home page has expected h1', async ({ page }) => {
 	await page.goto('/');
 	await expect(page.locator('h1')).toBeVisible();
@@ -19,17 +21,21 @@ test('cannot sign up with weak password', async ({ page }) => {
 });
 
 test('can sign up', async ({ page }) => {
-	const randomStr = Math.floor(Math.random() * Date.now()).toString(36);
+	for (let i = 0; i < MEMBER_AMOUNT; i++) {
+		const randomStr = Math.floor(Math.random() * Date.now()).toString(36);
 
-	const email = `${randomStr}@example.com`;
-	const password = `${randomStr}`;
+		const email = `${randomStr}@example.com`;
+		const password = `${randomStr}`;
 
-	await page.goto('/auth');
-	await page.getByLabel('Email').fill(email);
-	await page.getByLabel('Password').fill(password);
-	await page.getByText('Sign up').click();
+		await page.goto('/auth');
+		await page.getByLabel('Email').fill(email);
+		await page.getByLabel('Password').fill(password);
+		await page.getByText('Sign up').click();
 
-	await expect(page.getByText(`Hi, ${email}!`)).toBeVisible();
+		await expect(page.getByText(`Hi, ${email}!`)).toBeVisible();
+		await page.getByRole('button', { name: 'Logout' }).click();
+		await expect(page.getByText(`Hi, ${email}!`)).not.toBeVisible();
+	}
 });
 
 test('can log in and out', async ({ page }) => {
