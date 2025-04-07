@@ -3,7 +3,7 @@
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { DateFormatter } from '@internationalized/date';
 	import BudgetForm from './BudgetForm.svelte';
-	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
+	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import { type ColumnDef } from '@tanstack/table-core';
 
 	let { data } = $props();
@@ -16,6 +16,8 @@
 	const columns: ColumnDef<(typeof data.budgets)[number]>[] = [
 		{ accessorKey: 'id' },
 		{ accessorKey: 'amount' },
+		{ accessorKey: 'spent', cell: ({ row }) => row.original.spent ?? 0 },
+		{ accessorKey: 'remaining', cell: ({ row }) => row.original.remaining ?? 0 },
 		{ accessorKey: 'name' },
 		{ accessorKey: 'team.name' },
 		{ accessorKey: 'validFrom', cell: ({ row }) => df.format(row.original.validFrom!) },

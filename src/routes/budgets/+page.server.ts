@@ -5,7 +5,7 @@ import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { formSchema } from './schema';
 import { valibot } from 'sveltekit-superforms/adapters';
-import { eq, getTableColumns, sql } from 'drizzle-orm';
+import { getBudgets } from '$lib/server/db/util';
 
 const schema = valibot(formSchema);
 
@@ -32,24 +32,10 @@ export const actions = {
 
 export async function load() {
 	const [budgets, teams, form] = await Promise.all([
-		db.query.budget.findMany({
-			with: { purchases: true, team: true }
-		}),
+		getBudgets(),
 		db.query.team.findMany(),
 		superValidate(schema)
 	]);
-
-	console.log(
-		await db
-			.select({
-				...getTableColumns(table.budget),
-				spent: sql<number>`sum(${table.purchase.amount})`,
-				remaining: sql<number>`${table.budget.amount} - sum(${table.purchase.amount})`
-			})
-			.from(table.budget)
-			.leftJoin(table.purchase, eq(table.budget.id, table.purchase.budgetId))
-			.groupBy(table.budget.id)
-	);
 
 	return { budgets, form, teams };
 }
