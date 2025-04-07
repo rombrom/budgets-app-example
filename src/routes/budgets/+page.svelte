@@ -39,8 +39,4 @@ Budgets
 	</Dialog.Content>
 </Dialog.Root>
 
-{#if data.budgets.length}
-	<DataTable {columns} data={data.budgets} />
-{:else}
-	<p>No budgets</p>
-{/if}
+<DataTable {columns} data={data.budgets} />
