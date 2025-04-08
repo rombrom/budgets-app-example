@@ -38,7 +38,7 @@ said "approximately 2 hours of focus time". I applied for a full-stack role so
 I took a bit of liberty by multiplying the hours requested by 4, like one should usually
 attempt first when estimating—barring taking into account Hofstadter's law. In total of
 code-time I would estimate this took about 5-6h, debug time maybe one or two hours
-extra. Don't judge me. I love building for the web, I've enjoyed the exercise thoroughly.
+extra. A nibble for docs. Don't judge me. I love building for the web, I've enjoyed the exercise thoroughly.
 
 ### Unmet & Omitted
 
