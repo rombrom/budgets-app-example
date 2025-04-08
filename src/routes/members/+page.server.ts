@@ -27,13 +27,22 @@ export const actions = {
 		const teamId = formData.get('teamId');
 
 		if (!memberId) return fail(400);
-		if (!teamId) return fail(400);
 
 		const member = await db.query.member.findFirst({
 			where: ({ id }, { eq }) => eq(id, Number(memberId))
 		});
 
 		if (!member) return fail(400);
+
+		if (!teamId) {
+			const result = await db
+				.update(table.member)
+				.set({ teamId: null })
+				.where(eq(table.member.id, member.id))
+				.returning();
+
+			return { result };
+		}
 
 		const team = await db.query.team.findFirst({
 			where: ({ id }, { eq }) => eq(id, Number(teamId))

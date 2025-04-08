@@ -50,6 +50,13 @@
       "when": 1744009101113,
       "tag": "0006_wet_pretty_boy",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1744049927444,
+      "tag": "0007_opposite_hex",
+      "breakpoints": true
     }
   ]
 }
