@@ -8,7 +8,7 @@
 		"build": "npm run db:migrate && npm run app:build",
 		"app:dev": "vite dev",
 		"app:build": "vite build",
-		"app:preview": "vite preview",
+		"app:preview": "vite preview --port 3000",
 		"app:prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",

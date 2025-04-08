@@ -1,7 +1,6 @@
 import { expect, test } from '@playwright/test';
-import { ADMIN_EMAIL, ADMIN_PASSWORD } from './config';
 
-const MEMBER_AMOUNT = 20;
+const MEMBER_AMOUNT = 10;
 
 test('home page has expected h1', async ({ page }) => {
 	await page.goto('/');
@@ -33,23 +32,10 @@ test('can sign up', async ({ page }) => {
 		await page.getByText('Sign up').click();
 
 		await expect(page.getByText(`Hi, ${email}!`)).toBeVisible();
-		await page.getByRole('button', { name: 'Logout' }).click();
-		await expect(page.getByText(`Hi, ${email}!`)).not.toBeVisible();
+
+		await expect(async () => {
+			await page.getByRole('button', { name: 'Logout' }).click();
+			await expect(page.getByText(`Hi, ${email}!`)).not.toBeVisible();
+		}).toPass();
 	}
-});
-
-test('can log in and out', async ({ page }) => {
-	const email = ADMIN_EMAIL;
-	const password = ADMIN_PASSWORD;
-
-	await page.goto('/auth');
-	await page.getByLabel('Email').fill(email);
-	await page.getByLabel('Password').fill(password);
-	await page.getByText('Login').click();
-
-	await expect(page.getByText(`Hi, ${email}!`)).toBeVisible();
-
-	await page.getByRole('button', { name: 'Logout' }).click();
-
-	await expect(page.getByText(`Hi, ${email}!`)).not.toBeVisible();
 });

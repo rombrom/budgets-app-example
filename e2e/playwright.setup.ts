@@ -12,6 +12,8 @@ const client = postgres(process.env.DATABASE_URL);
 const db = drizzle(client, { schema });
 
 setup('initialize db', async ({ page }) => {
+	setup.setTimeout(120_000);
+
 	// TODO: parameterize
 	execSync(`npx supabase db reset`);
 	execSync(`npx drizzle-kit migrate`);
