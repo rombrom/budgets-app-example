@@ -70,6 +70,11 @@ ORM to easily setup queries.
 
 Superforms was a mistake. Should've opted for native and own implementation.
 
+I anticipated working with materialized views in Drizzle to be more flexible. Maybe it would've been
+better to use raw SQL.
+
+**Note**: I've left room for expanding the currency model. Usually you want int _and_ currency decimals.
+
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
