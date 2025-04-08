@@ -26,19 +26,25 @@
 	});
 </script>
 
-<nav>
-	<a href="/">Home</a>
-	<a href="/budgets">Budgets</a>
-	<a href="/members">Members</a>
-	<a href="/purchases">Purchases</a>
-	<a href="/teams">Teams</a>
-</nav>
-
-{#if data?.user}
-	<p>Hi, {data.user.email}!</p>
-	<p><button onclick={logout} type="button">Logout</button></p>
-{/if}
-
 <Toaster />
 
-{@render children()}
+<nav class="container flex flex-wrap items-center justify-center gap-4 border-b py-4 font-bold">
+	<a class="mx-auto text-primary underline sm:ml-0" href="/">Budgy.app</a>
+	<a class="underline" href="/budgets">Budgets</a>
+	<a class="underline" href="/members">Members</a>
+	<a class="underline" href="/purchases">Purchases</a>
+	<a class="mr-auto underline" href="/teams">Teams</a>
+</nav>
+
+<main class="container flex-1">
+	{#if data?.user}
+		<p>Hi, {data.user.email}!</p>
+		<p><button onclick={logout} type="button">Logout</button></p>
+	{/if}
+
+	{@render children()}
+</main>
+
+<footer class="container flex flex-wrap items-center justify-center border-t py-4">
+	<em>The flexible way to budget.</em>
+</footer>

@@ -27,16 +27,20 @@
 	];
 </script>
 
-Budgets
+<div class="flex gap-8 p-8">
+	<div class="prose">
+		<h2>Budgets</h2>
+	</div>
 
-<Dialog.Root>
-	<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>New Budget</Dialog.Trigger>
-	<Dialog.Content class="sm:max-w-[425px]">
-		<Dialog.Header>
-			<Dialog.Title>New Budget</Dialog.Title>
-		</Dialog.Header>
-		<BudgetForm action="?/create" form={data.form} teams={data.teams} />
-	</Dialog.Content>
-</Dialog.Root>
+	<Dialog.Root>
+		<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>New Budget</Dialog.Trigger>
+		<Dialog.Content class="sm:max-w-[425px]">
+			<Dialog.Header>
+				<Dialog.Title>New Budget</Dialog.Title>
+			</Dialog.Header>
+			<BudgetForm action="?/create" form={data.form} teams={data.teams} />
+		</Dialog.Content>
+	</Dialog.Root>
+</div>
 
 <DataTable {columns} data={data.budgets} />

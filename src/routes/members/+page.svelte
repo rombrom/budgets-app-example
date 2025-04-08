@@ -27,6 +27,10 @@
 	];
 </script>
 
-Members
+<div class="flex gap-8 p-8">
+	<div class="prose">
+		<h2>Members</h2>
+	</div>
+</div>
 
 <DataTable {columns} data={data.members} />
