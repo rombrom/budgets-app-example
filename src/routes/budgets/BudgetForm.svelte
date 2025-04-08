@@ -69,25 +69,27 @@
 		<Form.FieldErrors />
 	</Form.Field>
 
-	<Form.Field {form} name="validFrom">
-		<Form.Control>
-			{#snippet children({ props })}
-				<Form.Label>Valid From</Form.Label>
-				<DatePicker {...props} bind:value={$formData.validFrom} />
-			{/snippet}
-		</Form.Control>
-		<Form.FieldErrors />
-	</Form.Field>
+	<div class="grid grid-cols-[auto_1fr] items-center gap-x-4">
+		<Form.Field {form} name="validFrom" class="contents">
+			<Form.Control>
+				{#snippet children({ props })}
+					<Form.Label>Valid From</Form.Label>
+					<DatePicker {...props} class="w-auto" bind:value={$formData.validFrom} />
+				{/snippet}
+			</Form.Control>
+			<Form.FieldErrors class="col-span-2" />
+		</Form.Field>
 
-	<Form.Field {form} name="validUntil">
-		<Form.Control>
-			{#snippet children({ props })}
-				<Form.Label>Valid Until</Form.Label>
-				<DatePicker {...props} bind:value={$formData.validUntil} />
-			{/snippet}
-		</Form.Control>
-		<Form.FieldErrors />
-	</Form.Field>
+		<Form.Field {form} name="validUntil" class="contents">
+			<Form.Control>
+				{#snippet children({ props })}
+					<Form.Label>Valid Until</Form.Label>
+					<DatePicker {...props} class="w-auto" bind:value={$formData.validUntil} />
+				{/snippet}
+			</Form.Control>
+			<Form.FieldErrors class="col-span-2" />
+		</Form.Field>
+	</div>
 
 	<Form.Button>Submit</Form.Button>
 </form>

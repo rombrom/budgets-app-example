@@ -6,7 +6,12 @@
 	import { Calendar } from '$lib/components/ui/calendar/index.js';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 
-	let { name, value: formValue = $bindable() }: { name: string; value?: Date } = $props();
+	let {
+		class: className,
+		id,
+		name,
+		value: formValue = $bindable()
+	}: { class?: string; id?: string; name: string; value?: Date } = $props();
 
 	const df = new DateFormatter('en-US', {
 		dateStyle: 'long'
@@ -27,8 +32,10 @@
 				variant: 'outline',
 				class: 'w-[280px] justify-start text-left font-normal'
 			}),
-			!value && 'text-muted-foreground'
+			!value && 'text-muted-foreground',
+			className
 		)}
+		{id}
 	>
 		<CalendarIcon />
 		{value ? df.format(value.toDate(getLocalTimeZone())) : 'Pick a date'}
