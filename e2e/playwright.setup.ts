@@ -14,9 +14,10 @@ const db = drizzle(client, { schema });
 setup('initialize db', async ({ page }) => {
 	setup.setTimeout(120_000);
 
-	// TODO: parameterize
-	execSync(`npx supabase db reset`);
-	execSync(`npx drizzle-kit migrate`);
+	if (process.env.NODE_ENV !== 'development') {
+		execSync(`npx supabase db reset`);
+		execSync(`npx drizzle-kit migrate`);
+	}
 
 	const admin = await db.query.member.findFirst({
 		where: ({ email }, { eq }) => eq(email, ADMIN_EMAIL)
