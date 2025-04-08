@@ -20,31 +20,38 @@ export const actions = {
 		const amount = Number(form.data.amount) * 100;
 		const budgetId = Number(form.data.budgetId);
 
-		try {
-			const [result] = await db.transaction(async (tx) => {
-				const [budget] = await tx
-					.select({
-						...getTableColumns(table.budget),
-						remaining: sql<number>`(${table.budget.amount} - sum(${table.purchase.amount}))::int`
-					})
-					.from(table.budget)
-					.where(eq(table.budget.id, budgetId))
-					.leftJoin(table.purchase, eq(table.budget.id, table.purchase.budgetId))
-					.groupBy(table.budget.id);
+		const [budget] = await db
+			.select({
+				...getTableColumns(table.budget),
+				remaining: sql<number>`(${table.budget.amount} - sum(${table.purchase.amount}))::int`
+			})
+			.from(table.budget)
+			.where(eq(table.budget.id, budgetId))
+			.leftJoin(table.purchase, eq(table.budget.id, table.purchase.budgetId))
+			.groupBy(table.budget.id);
 
-				if (budget.remaining - amount < 0) tx.rollback();
+		const now = new Date().getTime();
+		const available = budget.remaining ?? budget.amount;
+		const withinTimeframe = now >= budget.validFrom.getTime() && now <= budget.validUntil.getTime();
 
-				return tx
-					.insert(table.purchase)
-					.values({ amount, budgetId, memberId: Number(form.data.memberId) })
-					.returning();
-			});
-
-			return { form, result };
-		} catch {
+		if (!withinTimeframe) {
+			setFlash(
+				{ type: 'error', message: 'Cannot make purchase outside of budget timeframe.' },
+				cookies
+			);
+			return fail(400, { form });
+		}
+		if (available - amount < 0) {
 			setFlash({ type: 'error', message: 'Not enough budget remaining.' }, cookies);
 			return fail(400, { form });
 		}
+
+		const result = await db
+			.insert(table.purchase)
+			.values({ amount, budgetId, memberId: Number(form.data.memberId) })
+			.returning();
+
+		return { form, result };
 	}
 };
 
