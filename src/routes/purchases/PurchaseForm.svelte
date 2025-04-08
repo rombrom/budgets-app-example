@@ -64,15 +64,15 @@
 				<Select.Root type="single" bind:value={$formData.budgetId} name={props.name}>
 					<Select.Trigger {...props}>
 						{selectedBudget
-							? `${selectedBudget.name} (${selectedBudget.remaining ?? 0})`
+							? `${selectedBudget.name} (${selectedBudget.remaining ?? selectedBudget.amount})`
 							: 'Select a budget'}
 					</Select.Trigger>
 					<Select.Content>
 						{#each rootProps.budgets as budget (budget.id)}
 							<Select.Item
-								disabled={(budget.remaining ?? 0) <= Number($formData.amount)}
+								disabled={(budget.remaining ?? budget.amount) <= Number($formData.amount)}
 								value={String(budget.id)}
-								label={`${budget.name ?? String(budget.id)} (${budget.remaining ?? 0})`}
+								label={`${budget.name ?? String(budget.id)} (${budget.remaining ?? budget.amount})`}
 							/>
 						{/each}
 					</Select.Content>
