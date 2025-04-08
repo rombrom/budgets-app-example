@@ -45,6 +45,6 @@
 	{@render children()}
 </main>
 
-<footer class="container flex flex-wrap items-center justify-center border-t py-4">
+<footer class="container mt-8 flex flex-wrap items-center justify-center border-t py-4">
 	<em>The flexible way to budget.</em>
 </footer>
