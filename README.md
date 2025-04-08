@@ -33,8 +33,11 @@ The following is an excerpt of the exercise requirements.
 
 I haven't completed some fully for the sake of running into excessive overtime.
 I had to iterate on this project over a couple of days, doing small snippets
-because I couldn't afford a long stretch due to other obligations. In total of
-code-time I would estimate this took about 5-6, debug time maybe one hour, 1.5
+because I couldn't afford a long stretch due to other obligations. The assignment
+said "approximately 2 hours of focus time". I applied for a full-stack role so
+I took a bit of liberty by multiplying the hours requested by 4, like one should usually
+attempt first when estimating—barring taking into account Hofstadter's law. In total of
+code-time I would estimate this took about 5-6h, debug time maybe one or two hours
 extra. Don't judge me. I love building for the web, I've enjoyed the exercise thoroughly.
 
 ### Unmet & Omitted
