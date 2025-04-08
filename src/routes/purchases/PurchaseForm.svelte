@@ -16,7 +16,7 @@
 		budgets: (typeof table.budget.$inferSelect & {
 			spent: number | null;
 			remaining: number | null;
-			team: typeof table.team.$inferSelect;
+			team: typeof table.team.$inferSelect | null;
 		})[];
 		form: SuperValidated<Infer<typeof formSchema>>;
 		members: { id: number; email: string; teamId: number | null }[];
