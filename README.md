@@ -47,6 +47,10 @@ attempt first when estimating—barring taking into account Hofstadter's law. In
 code-time I would estimate this took about 5-6h, debug time maybe one or two hours
 extra. A nibble for docs. Don't judge me. I love building for the web and I've enjoyed the exercise thoroughly.
 
+You can [read my
+view](https://www.rombrom.com/posts/into-the-gauntlet-hiring-in-NL-2025/) on
+these type of assessments on [my website](https://www.rombrom.com).
+
 ### Unmet & Omitted
 
 - Full user session and permission integration:
