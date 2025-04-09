@@ -13,7 +13,11 @@ Built in SvelteKit, with Drizzle ORM, Supabase.
 1. Copy `.env.example` to `.env`
 2. `npm install`
 3. `npm run db:start`. You might need to init Supabase. (Needs fix: in `npm run test`.)
-4. `npm run dev` (\*\*Note: required to run `npm run db:migrate` after Supabase booted if you skip tests.)
+4. `npm run dev` (**Note:** required to run `npm run db:migrate` after Supabase booted if you skip tests.)
+5. Navigate to [http://localhost:3000/](http://localhost:3000/);
+
+**Note:** it's advisable to run the tests after having set up live dev. These will
+seed the DB with some testing data.
 
 ## Assessment Requirements
 
@@ -39,7 +43,7 @@ said "approximately 2 hours of focus time". I applied for a full-stack role so
 I took a bit of liberty by multiplying the hours requested by 4, like one should usually
 attempt first when estimating—barring taking into account Hofstadter's law. In total of
 code-time I would estimate this took about 5-6h, debug time maybe one or two hours
-extra. A nibble for docs. Don't judge me. I love building for the web, I've enjoyed the exercise thoroughly.
+extra. A nibble for docs. Don't judge me. I love building for the web and I've enjoyed the exercise thoroughly.
 
 ### Unmet & Omitted
 
@@ -52,7 +56,7 @@ extra. A nibble for docs. Don't judge me. I love building for the web, I've enjo
 
   What exactly is the `optimal` available budget? There are businesses which
   require budgets to be tightly checked. In this case I assumed the user as a
-  part of the "system" which would certainly, using common sense and logic, to
+  part of the "system" who would certainly, using common sense and logic,
   be able to select the appropriate and `optimal` budget for their purchase.
 
 - At its current state I find the UI severely lacking. It'd be something I might
@@ -74,7 +78,7 @@ Superforms was a mistake. Should've opted for native and own implementation.
 I anticipated working with materialized views in Drizzle to be more flexible. Maybe it would've been
 better to use raw SQL.
 
-**Note**: I've left room for expanding the currency model. Usually you want int _and_ currency decimals.
+**Note**: I've left room for expanding the currency model. Usually you want int for amounts _and_ the currency's amount of decimals.
 
 ## Developing
 
@@ -90,8 +94,7 @@ npm run dev -- --open
 ## Testing
 
 Playwright is the E2E test runner. Most bang for your buck w/r testing full-circle.
-Once components start to crystallize you could expand with Storybook for UI/A11y, same for core business logic
-where I'd chose Vitest.
+Once components start to crystallize you could expand with Storybook for UI/A11y, same for core business logic where I'd chose Vitest.
 
 1. `npm run test`
 2. Get UI up and running: `npx run test --ui`
