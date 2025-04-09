@@ -28,8 +28,11 @@ The following is an excerpt of the exercise requirements.
 > - A team member should be able to view the available budgets and the remaining balance.
 > - A team member can execute a transaction by specifying the amount. The system should automatically apply the transaction to the ‘optimal’ available budget.
 > - Include documentation and tests.
->   ...
->   Some constraints which may help you get started:
+>
+> \[...\]
+>
+> Some constraints which may help you get started:
+>
 > - A team-member can only be part of a single team.
 > - A purchase can only be made if a single budget has enough funds to cover the whole
 >   purchase.
