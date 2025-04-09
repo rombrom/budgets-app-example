@@ -19,6 +19,8 @@ Built in SvelteKit, with Drizzle ORM, Supabase.
 **Note:** it's advisable to run the tests after having set up live dev. These will
 seed the DB with some testing data.
 
+**Disclaimer:** no AI/LLM tools have been used to craft this project.
+
 ## Assessment Requirements
 
 The following is an excerpt of the exercise requirements.
